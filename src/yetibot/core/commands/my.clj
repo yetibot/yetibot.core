@@ -3,7 +3,6 @@
             [yetibot.core.models.users :as users]
             [taoensso.timbre :refer [info]]
             [yetibot.core.db.my :as db]
-            [yetibot.core.chat :as chat]
             [clojure.string :as string]))
 
 (defn format-user-kv [{user-id :user-id k :key v :value}]
