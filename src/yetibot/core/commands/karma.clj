@@ -22,7 +22,6 @@
 (s/def ::config any?)
 
 (def config (:value (get-config ::config [:karma])))
-
 (def pos-emoji (or (-> config :emoji :positive) ":rainbow:"))  ;; 🌈
 (def neg-emoji (or (-> config :emoji :negative) ":thunder_cloud_and_rain:"))  ;; ⛈
 
@@ -106,8 +105,10 @@
                                      reply-emoji user-id score)})))))))
 
 (cmd-hook
- "karma"
+ {:prefix
+  {"karma" #"karma"}
+  }
  #"^(?x) \s* @(\w[-\w]*\w) \s*$" get-score
-#"^(?x) \s* @(\w[-\w]*\w) \s{0,2} (--|\+\+) (?: \s+(.+) )? \s*$" adjust-score
+ #"^(?x) \s* @(\w[-\w]*\w) \s{0,2} (--|\+\+) (?: \s+(.+) )? \s*$" adjust-score
  #"all" get-all-high-scores
  _ get-high-scores)

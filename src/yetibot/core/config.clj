@@ -1,6 +1,6 @@
 (ns yetibot.core.config
   "Config is made available via
-   [environ](https://github.com/weavejester/environ)"
+   environ: https://github.com/weavejester/environ"
   (:require [dec :refer [explode]]
             [clojure.string :refer [blank?]]
             [environ.core :refer [env]]

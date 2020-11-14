@@ -38,7 +38,6 @@
   [uuid channel]
   (let [results (db/query {:where/map {:chat-source-adapter (pr-str uuid)
                                        :chat-source-channel channel}})]
-
     (->> results
          (map (fn [{:keys [key value]}]
                 [key

@@ -159,7 +159,6 @@
                                ;; else - just the pattern
                            {(str topic-and-pattern) topic-and-pattern})
         cmd-pairs (partition 2 cmds)]
-
     (run!
      (fn [[topic re-prefix]]
        (let [re-prefix (lockdown-prefix-regex re-prefix)]
@@ -182,18 +181,18 @@
   [prefix & cmds]
   (let [cmd-pairs (partition 2 cmds)]
     `(cmd-hook-resolved
-       ~prefix
-       ~@(mapcat (fn [[k# v#]]
-                   [(condp = k#
-                      '_ #".*"
-                      k#)
-                    ; Need to resolve the var in order to get at its docstring.
-                    ; This only applies to regular usage of cmd-hook. If using
-                    ; cmd-hook with unresolvable anonymous functions (such as in
-                    ; alias) the client must add the help metdata itself as
-                    ; cmd-hook cannot extract it.
-                    (if-let [resolved (resolve v#)] resolved v#)])
-                 cmd-pairs))))
+      ~prefix
+      ~@(mapcat (fn [[k# v#]]
+                  [(condp = k#
+                     '_ #".*"
+                     k#)
+                   ; Need to resolve the var in order to get at its docstring.
+                   ; This only applies to regular usage of cmd-hook. If using
+                   ; cmd-hook with unresolvable anonymous functions (such as in
+                   ; alias) the client must add the help metdata itself as
+                   ; cmd-hook cannot extract it.
+                   (if-let [resolved (resolve v#)] resolved v#)])
+                cmd-pairs))))
 
 ;; TODO make obs-hooks reloadable - maybe each one should have some metadata
 ;; like name and description of intent assocaited with it?
